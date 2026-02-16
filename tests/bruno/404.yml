@@ -1,0 +1,19 @@
+info:
+  name: "404"
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: "{{base_url}}/greeting?id=00000-00000000-0000"
+  params:
+    - name: id
+      value: 00000-00000000-0000
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
