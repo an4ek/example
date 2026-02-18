@@ -8,6 +8,20 @@ http:
   url: "{{base_url}}/greeting/{{user_id}}"
   auth: inherit
 
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        test("Статус должен быть 200", function() {
+          expect(res.status).to.equal(200);
+        });
+
+        test("Возвращены данные пользователя", function() {
+          const data = res.body;
+          expect(data).to.have.property("name");
+          expect(data).to.have.property("surname");
+        });
+
 settings:
   encodeUrl: true
   timeout: 0

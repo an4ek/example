@@ -6,7 +6,31 @@ info:
 http:
   method: POST
   url: "{{base_url}}/greeting"
-  auth: inherit
+  body:
+    type: json
+    data: |
+      {
+        "name": "Ksenia",
+        "surname": "Lebedeva"
+      }
+    auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        test("Статус должен быть 200", function() {
+          expect(res.status).to.equal(200);
+        });
+
+        test("Ответ содержит text и id", function() {
+          const data = res.body;
+          expect(data).to.have.property("text");
+          expect(data).to.have.property("id");
+          expect(data.text).to.include("Ksenia");
+        });
+
+        bru.setEnvVar("user_id", res.body.id);
 
 settings:
   encodeUrl: true

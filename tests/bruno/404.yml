@@ -12,6 +12,14 @@ http:
       type: query
   auth: inherit
 
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        test("Статус должен быть 404", function() {
+          expect(res.status).to.equal(404);
+        });
+
 settings:
   encodeUrl: true
   timeout: 0
