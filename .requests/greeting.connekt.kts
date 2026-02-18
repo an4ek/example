@@ -1,6 +1,6 @@
 val baseUrl: String by env
 
-println("=== 1: GET /greeting")
+println("1: GET /greeting")
 GET("$baseUrl/greeting") {
     accept("application/json")
 } then {
@@ -13,7 +13,7 @@ GET("$baseUrl/greeting") {
 
 
 
-println("\n=== 2: POST /greeting")
+println("\n 2: POST /greeting")
 var userId = ""
 
 POST("$baseUrl/greeting") {
@@ -29,7 +29,6 @@ POST("$baseUrl/greeting") {
         println("2 PASSED: Status 200")
         println("   Response: $body")
 
-        // Извлекаем ID из строки JSON
         val responseStr = body.toString()
         val idPattern = """"id":"([^"]+)"""".toRegex()
         val match = idPattern.find(responseStr)
@@ -43,7 +42,7 @@ POST("$baseUrl/greeting") {
 }
 
 
-println("\n=== 3: GET /greeting?id=$userId")
+println("\n 3: GET /greeting?id=$userId")
 GET("$baseUrl/greeting?id=$userId") {
     accept("application/json")
 } then {
@@ -55,7 +54,7 @@ GET("$baseUrl/greeting?id=$userId") {
 }
 
 
-println("\n=== 4: GET /greeting/$userId")
+println("\n 4: GET /greeting/$userId")
 GET("$baseUrl/greeting/$userId") {
     accept("application/json")
 } then {
@@ -67,7 +66,7 @@ GET("$baseUrl/greeting/$userId") {
 }
 
 
-println("\n=== 5: GET (404)")
+println("\n 5: GET (404)")
 GET("$baseUrl/greeting?id=000000-0000-0") {
     accept("application/json")
 } then {
